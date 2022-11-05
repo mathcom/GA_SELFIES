@@ -57,7 +57,7 @@ def obtain_initial_discriminator(disc_enc_type, disc_layers, max_molecules_len, 
     if disc_enc_type == 'smiles' or disc_enc_type == 'selfies':
         alphabet = evo.smiles_alphabet(disc_enc_type)
         one_hot_len = len(alphabet) * max_molecules_len
-        discriminator, d_optimizer, d_loss_func = create_discriminator(one_hot_len, disc_layers, 0.0, device) 
+        discriminator, d_optimizer, d_loss_func = create_discriminator(one_hot_len, disc_layers, device) 
         return discriminator, d_optimizer, d_loss_func
     elif disc_enc_type == 'properties_rdkit':
         discriminator, d_optimizer, d_loss_func = create_discriminator(51, disc_layers, device)  

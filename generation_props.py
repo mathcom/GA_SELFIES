@@ -129,7 +129,8 @@ def fitness(molecules_here,    properties_calc_ls,
         discriminator_predictions = D.do_predictions(discriminator, dataset_x, device)
     
     if properties_calc_ls == None:
-        fitness = discriminator_predictions
+        fitness = discriminator_predictions.flatten()
+        logP_calculated = SAS_calculated = RingP_calculated = fitness
     
     else:
         
@@ -310,6 +311,10 @@ def obtain_fitness(disc_enc_type, smiles_here, selfies_here, properties_calc_ls,
     discriminator_predictions = [discriminator_predictions[idx] for idx in order]
     
     os.makedirs('{}/{}'.format(data_dir, generation_index))
+    # Write ordered selfies in a text file (new)
+    f = open('{}/{}/selfies_ordered.txt'.format(data_dir, generation_index), 'a+')
+    f.writelines(["%s\n" % item for item in selfies_ordered])
+    f.close()
     #  Write ordered smiles in a text file
     f = open('{}/{}/smiles_ordered.txt'.format(data_dir, generation_index), 'a+')
     f.writelines(["%s\n" % item  for item in smiles_ordered])
